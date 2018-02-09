@@ -1,20 +1,23 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const auth = require('./routes/auth');
 
-var app = express();
+const app = express();
 
 // data base setup
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/database-name', {
+mongoose.connect('mongodb://localhost/meetup-db', {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 });
@@ -32,8 +35,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  secret: 'some-string',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}));
+
+app.use(function (req, res, next) {
+  app.locals.user = req.session.currentUser;
+  next();
+});
+
+// Routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/auth', auth);
 
 // -- 404 and error handler
 

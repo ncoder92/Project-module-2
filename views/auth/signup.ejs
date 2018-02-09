@@ -1,0 +1,29 @@
+<h2>Signup</h2>
+
+<form action="/auth/signup" method="POST" >
+  <div class="field">
+		<label for="name"> Name </label>
+		<input type="text" name="name" id="name" value="<%= fields.name %>">
+	</div>  
+  <div class="field">
+    <label for="username"> Username </label>
+    <input type="text" name="username" id="username"  value="<%= fields.username %>">
+	</div>
+	<div class="field">
+    <label for="email"> Email </label>
+    <input type="text" name="email" id="email" value="<%= fields.email %>">
+  </div>
+  <div class="field">
+    <label for="password"> Password </label>
+    <input type="password" name="password" id="password">
+	</div>
+  <div class="field control">
+    <button class="btn submit">Signup</button>
+    <% if (typeof message !== 'undefined') { %>
+      <p class="error"><%= message %></p>
+    <% } %>
+  </div>
+</form>
+
+<a href="/auth/login">Already have an account? Login here</a>
+
