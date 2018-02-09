@@ -5,7 +5,14 @@ const Event = require('../models/event');
 
 // GET ('/events')
 router.get('/', function (req, res, next) {
-  res.render('events/events');
+  Event.find({})
+    .then((results) => {
+      const data = {
+        results
+      };
+      res.render('events/events', data);
+    })
+    .catch(next);
 });
 
 // GET ('/events/new')
