@@ -1,7 +1,6 @@
-<h2>Event list</h2>
-<a href="/profile/my-events/<%= user._id %>">My profile</a>
+<h2>My events</h2>
 <div class="container">
-  <% results.forEach((event) => { %>
+  <% events.forEach((event) => { %>
     <div>
       <h3><%= event.title %></h3>
       <p><%= event.description %></p>
@@ -9,3 +8,4 @@
     </div>
   <% }) %>
 </div>
+<a href="/events">back</a>

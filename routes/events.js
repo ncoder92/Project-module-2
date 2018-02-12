@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const User = require('../models/user');
 const Event = require('../models/event');
 
 // GET ('/events')
@@ -24,9 +25,10 @@ router.get('/new', (req, res, next) => {
 });
 
 // POST ('/events') Crear nuevo
-router.post('/', (req, res, next) => {
+router.post('/:userId', (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
+  const userId = req.params.userId;
 
   if (title === '') {
     const data = {
@@ -47,6 +49,9 @@ router.post('/', (req, res, next) => {
   });
 
   newEvent.save()
+    .then((eventCreated) => {
+      return User.findByIdAndUpdate(userId, { $push: { owned: eventCreated._id } });
+    })
     .then(() => res.redirect('/'))
     .catch(next);
 });

@@ -1,6 +1,6 @@
 <h2>Create new event</h2>
 
-<form action="/events" method="POST" >
+<form action="/events/<%= user._id %>" method="POST" >
   <div class="field">
 		<label for="title"> Title </label>
 		<input type="text" name="title" id="title">
