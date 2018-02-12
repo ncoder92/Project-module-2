@@ -1,8 +1,47 @@
+/* ---- reset ---- */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
+
+/* ---- typography ---- */
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+h1 {}
+
+h2 {}
+
+h3 {}
 
 a {
   color: #00B7FF;
 }
+
+
+
+
+/* ---- layout ---- */
+
+#site-header {
+  border-bottom: 1px solid rgba(46,62,72.12);
+  position: fixed;
+  top: 0px;
+}
+
+#site-footer {}
+
+#site-main {}
+
+
+
+
+/* ---- components ---- */
