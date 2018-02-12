@@ -8,19 +8,11 @@ html {
 }
 
 
-
-
 /* ---- typography ---- */
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
-h1 {}
-
-h2 {}
-
-h3 {}
 
 a {
   color: #00B7FF;
@@ -31,16 +23,36 @@ a {
 
 /* ---- layout ---- */
 
-#site-header {
-  border-bottom: 1px solid rgba(46,62,72.12);
-  position: fixed;
+header {
+  background-color: blueviolet;
+  border-bottom: 3px solid black;
   top: 0px;
 }
 
-#site-footer {}
+.header-container {
+  display: flex;
+  justify-content: space-between
+}
 
-#site-main {}
 
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.container div {
+  border: 1px solid rgb(112, 91, 170);
+  margin-bottom: 10px;
+}
+
+footer {
+  position: fixed;
+  height: 100px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 
 
