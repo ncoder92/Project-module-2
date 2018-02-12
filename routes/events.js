@@ -19,16 +19,18 @@ router.get('/', function (req, res, next) {
 // GET ('/events/new')
 router.get('/new', (req, res, next) => {
   if (!req.session.currentUser) {
-    return res.redirect('/');
+    return res.redirect('/events');
   }
   res.render('events/new');
 });
 
 // POST ('/events') Crear nuevo
-router.post('/:userId', (req, res, next) => {
+router.post('/', (req, res, next) => {
+  if (!req.session.currentUser) {
+    res.redirect('/events');
+  }
   const title = req.body.title;
   const description = req.body.description;
-  const userId = req.params.userId;
 
   if (title === '') {
     const data = {
@@ -50,7 +52,7 @@ router.post('/:userId', (req, res, next) => {
 
   newEvent.save()
     .then((eventCreated) => {
-      return User.findByIdAndUpdate(userId, { $push: { owned: eventCreated._id } });
+      return User.findByIdAndUpdate(req.session.currentUser._id, { $push: { owned: eventCreated._id } });
     })
     .then(() => res.redirect('/'))
     .catch(next);
@@ -59,30 +61,61 @@ router.post('/:userId', (req, res, next) => {
 // GET ('/events/:Id')
 router.get('/:id', (req, res, next) => {
   const eventId = req.params.id;
+  const currentUser = req.session.currentUser;
+  let data = {};
 
-  Event.findById(eventId)
+  Event.findById(eventId).populate('attendees')
     .then((event) => {
-      const data = {
-        title: event.title,
-        description: event.description,
-        id: event._id
-      };
+      let alreadyAttending = false;
+      for (let i = 0; i < event.attendees.length; i++) {
+        if (event.attendees[i]._id.equals(currentUser._id)) {
+          alreadyAttending = true;
+        }
+      }
+
+      if (!currentUser) {
+        data = {
+          title: event.title,
+          description: event.description,
+          id: event._id,
+          status: 'not logged in'
+        };
+      } else if (alreadyAttending) {
+        data = {
+          title: event.title,
+          description: event.description,
+          id: event._id,
+          status: 'attending'
+        };
+      } else {
+        data = {
+          title: event.title,
+          description: event.description,
+          id: event._id,
+          status: 'not attending'
+        };
+      }
       res.render('events/details', data);
     })
     .catch(next);
 });
 
 // POST ('/events/:Id') Attend
-router.post('/:id/:userId', (req, res, next) => {
+router.post('/:id', (req, res, next) => {
   const eventId = req.params.id;
-  const userId = req.params.userId;
+  const currentUser = req.session.currentUser;
 
-  Event.findByIdAndUpdate(eventId, { $push: { attendees: userId } })
+  if (!currentUser) {
+    res.redirect('/events');
+  }
+
+  Event.findByIdAndUpdate(eventId, { $push: { attendees: currentUser._id } })
     .then((event) => {
       const data = {
         title: event.title,
         description: event.description,
-        id: event._id
+        id: event._id,
+        status: ''
       };
       res.render('events/details', data);
     })

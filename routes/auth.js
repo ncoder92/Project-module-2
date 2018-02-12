@@ -10,7 +10,7 @@ const bcryptSalt = 10;
 /* GET login page. */
 router.get('/login', function (req, res, next) {
   if (req.session.currentUser) {
-    return res.redirect('/');
+    return res.redirect('/events');
   }
   const data = {
     usernameField: ''
@@ -21,7 +21,7 @@ router.get('/login', function (req, res, next) {
 /* POST login page. */
 router.post('/login', (req, res, next) => {
   if (req.session.currentUser) {
-    return res.redirect('/');
+    return res.redirect('/events');
   }
 
   var username = req.body.username;
@@ -49,7 +49,7 @@ router.post('/login', (req, res, next) => {
 
     if (bcrypt.compareSync(password, user.password)) {
       req.session.currentUser = user;
-      res.redirect('/');
+      res.redirect('/events');
     } else {
       const data = {
         usernameField: username,
@@ -63,7 +63,7 @@ router.post('/login', (req, res, next) => {
 /* render the signup form. */
 router.get('/signup', (req, res, next) => {
   if (req.session.currentUser) {
-    return res.redirect('/');
+    return res.redirect('/events');
   }
   const data = {
     fields: {
@@ -78,7 +78,7 @@ router.get('/signup', (req, res, next) => {
 /* handle the POST from the signup form. */
 router.post('/signup', (req, res, next) => {
   if (req.session.currentUser) {
-    return res.redirect('/');
+    return res.redirect('/events');
   }
 
   const name = req.body.name;
@@ -87,7 +87,7 @@ router.post('/signup', (req, res, next) => {
   const password = req.body.password;
 
   // validate
-  if (username === '' || password === '' || password.length < 8) {
+  if (username === '' || password === '' || password.length < 8 || email === '') {
     const data = {
       message: 'Invalid username or password',
       fields: {
@@ -131,7 +131,7 @@ router.post('/signup', (req, res, next) => {
         return next(err);
       }
       req.session.currentUser = newUser;
-      res.redirect('/');
+      res.redirect('/events');
     });
   });
 });
@@ -139,7 +139,7 @@ router.post('/signup', (req, res, next) => {
 /* handle the POST from the logout button. */
 router.post('/logout', (req, res, next) => {
   req.session.currentUser = null;
-  res.redirect('/');
+  res.redirect('/events');
 });
 
 module.exports = router;

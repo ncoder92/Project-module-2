@@ -4,8 +4,19 @@
       <h3><%= title %></h3>
       <p><%= description %></p>
     </div>
-    <form action="/events/<%= id %>/<%= user._id %>" method="POST" >
-      <button class="btn submit">Attend</button>
-    </form>  
+    <% if (status === 'not logged in') { %>
+      <form action="/auth/login" method="GET" >
+        <button class="btn submit">Login to attend</button>
+      </form>  
+    <% } else if (status === 'not attending') { %>
+      <form action="/events/<%= id %>" method="POST" >
+        <button class="btn submit">Attend</button>
+      </form>  
+    <% } else if (status === 'attending') { %>
+      <form action="/events/<%= id %>" method="POST" >
+        <button class="btn submit">Unattend</button>
+      </form>  
+    <% } %>
+ 
     <a href="/events">back</a>
 </div>
