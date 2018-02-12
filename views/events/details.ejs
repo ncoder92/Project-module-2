@@ -1,0 +1,11 @@
+<h2>Event details</h2>
+<div class="container">
+    <div>
+      <h3><%= title %></h3>
+      <p><%= description %></p>
+    </div>
+    <form action="/events/<%= id %>/<%= user._id %>" method="POST" >
+      <button class="btn submit">Attend</button>
+    </form>  
+    <a href="/events">back</a>
+</div>

@@ -52,7 +52,36 @@ router.post('/', (req, res, next) => {
 });
 
 // GET ('/events/:Id')
+router.get('/:id', (req, res, next) => {
+  const eventId = req.params.id;
+
+  Event.findById(eventId)
+    .then((event) => {
+      const data = {
+        title: event.title,
+        description: event.description,
+        id: event._id
+      };
+      res.render('events/details', data);
+    })
+    .catch(next);
+});
 
 // POST ('/events/:Id') Attend
+router.post('/:id/:userId', (req, res, next) => {
+  const eventId = req.params.id;
+  const userId = req.params.userId;
+
+  Event.findByIdAndUpdate(eventId, { $push: { attendees: userId } })
+    .then((event) => {
+      const data = {
+        title: event.title,
+        description: event.description,
+        id: event._id
+      };
+      res.render('events/details', data);
+    })
+    .catch(next);
+});
 
 module.exports = router;
