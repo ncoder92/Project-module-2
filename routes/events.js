@@ -67,11 +67,6 @@ router.get('/:id', (req, res, next) => {
   Event.findById(eventId).populate('attendees')
     .then((event) => {
       let alreadyAttending = false;
-      for (let i = 0; i < event.attendees.length; i++) {
-        if (event.attendees[i]._id.equals(currentUser._id)) {
-          alreadyAttending = true;
-        }
-      }
 
       if (!currentUser) {
         data = {
@@ -80,7 +75,15 @@ router.get('/:id', (req, res, next) => {
           id: event._id,
           status: 'not logged in'
         };
-      } else if (alreadyAttending) {
+      } else {
+        for (let i = 0; i < event.attendees.length; i++) {
+          if (event.attendees[i]._id.equals(currentUser._id)) {
+            alreadyAttending = true;
+          }
+        }
+      }
+
+      if (alreadyAttending) {
         data = {
           title: event.title,
           description: event.description,
