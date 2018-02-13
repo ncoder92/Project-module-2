@@ -69,9 +69,11 @@ router.get('/:id', (req, res, next) => {
   const currentUser = req.session.currentUser;
   let isOwner = false;
 
-  for (let i = 0; i < currentUser.owned.length; i++) {
-    if (currentUser.owned[i] === eventId) {
-      isOwner = true;
+  if (currentUser) {
+    for (let i = 0; i < currentUser.owned.length; i++) {
+      if (currentUser.owned[i] === eventId) {
+        isOwner = true;
+      }
     }
   }
 
