@@ -49,14 +49,16 @@ router.post('/', (req, res, next) => {
     title,
     description
   });
+  let newEventId;
 
   newEvent.save()
     .then((eventCreated) => {
+      newEventId = eventCreated._id;
       return User.findByIdAndUpdate(req.session.currentUser._id, { $push: { owned: eventCreated._id } }, { new: true });
     })
     .then((user) => {
       req.session.currentUser = user;
-      res.redirect('/');
+      res.redirect(`/events/${newEventId}`);
     })
     .catch(next);
 });
