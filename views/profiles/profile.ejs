@@ -1,16 +1,16 @@
 <h2>My events</h2>
 <div class="container">
   <% events.forEach((event) => { %>
+    <% if (event.active) { %>
     <div>
-      <% if (event.active) { %>
       <h3><%= event.title %></h3>
       <p><%= event.description %></p>
       <a href="/events/<%= event._id%>">View details</a>
       <form action="/profile/my-events/<%= event._id%>" method="post">
         <button>Delete event</button>
       </form>
-      <% } %>
     </div>
+    <% } %>
   <% }) %>
 </div>
 <a href="/events">back</a>

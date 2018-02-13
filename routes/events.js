@@ -62,19 +62,25 @@ router.post('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const eventId = req.params.id;
   const currentUser = req.session.currentUser;
-  let data = {};
+  let isOwner = false;
+
+  for (let i = 0; i < currentUser.owned.length; i++) {
+    if (currentUser.owned[i] === eventId) {
+      isOwner = true;
+    }
+  }
 
   Event.findById(eventId).populate('attendees')
     .then((event) => {
       let alreadyAttending = false;
+      let data = {
+        title: event.title,
+        description: event.description,
+        id: event._id
+      };
 
       if (!currentUser) {
-        data = {
-          title: event.title,
-          description: event.description,
-          id: event._id,
-          status: 'not logged in'
-        };
+        data.status = 'not logged in';
       } else {
         for (let i = 0; i < event.attendees.length; i++) {
           if (event.attendees[i]._id.equals(currentUser._id)) {
@@ -82,21 +88,12 @@ router.get('/:id', (req, res, next) => {
           }
         }
       }
-
-      if (alreadyAttending) {
-        data = {
-          title: event.title,
-          description: event.description,
-          id: event._id,
-          status: 'attending'
-        };
-      } else {
-        data = {
-          title: event.title,
-          description: event.description,
-          id: event._id,
-          status: 'not attending'
-        };
+      if (isOwner) {
+        data.status = 'owner';
+      } else if (alreadyAttending) {
+        data.status = 'attending';
+      } else if (!alreadyAttending && currentUser) {
+        data.status = 'not attending';
       }
       res.render('events/details', data);
     })
@@ -107,21 +104,39 @@ router.get('/:id', (req, res, next) => {
 router.post('/:id', (req, res, next) => {
   const eventId = req.params.id;
   const currentUser = req.session.currentUser;
+  let alreadyAttending = false;
+  let data = {};
 
   if (!currentUser) {
     res.redirect('/events');
   }
 
-  Event.findByIdAndUpdate(eventId, { $push: { attendees: currentUser._id } })
-    .then((event) => {
-      const data = {
-        title: event.title,
-        description: event.description,
-        id: event._id,
-        status: ''
-      };
-      res.render('events/details', data);
+  Event.findById(eventId).populate('attendees')
+    .then((result) => {
+      for (let i = 0; i < result.attendees.length; i++) {
+        if (result.attendees[i]._id.equals(currentUser._id)) {
+          alreadyAttending = true;
+        }
+      }
+      if (alreadyAttending) {
+        data = {
+          title: result.title,
+          description: result.description,
+          id: result._id,
+          status: 'not attending'
+        };
+        return Event.findByIdAndUpdate(eventId, { $pull: {attendees: currentUser._id} });
+      } else {
+        data = {
+          title: result.title,
+          description: result.description,
+          id: result._id,
+          status: 'attending'
+        };
+        return Event.findByIdAndUpdate(eventId, { $push: {attendees: currentUser._id} });
+      }
     })
+    .then(() => { res.redirect(`/events/${eventId}`); })
     .catch(next);
 });
 
