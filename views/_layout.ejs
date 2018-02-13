@@ -12,6 +12,7 @@
 	<header>
 		<div class="header-container">
 			<div><p>Logo</p></div>
+			<p><%= user.name%></p>
 			<div>
 				<% if (!user) { %>
 					<a href="/auth/signup">Signin</a>

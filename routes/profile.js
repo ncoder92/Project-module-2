@@ -7,7 +7,7 @@ const Event = require('../models/event');
 // GET ('/profile/myevents')
 router.get('/my-events', (req, res, next) => {
   if (!req.session.currentUser) {
-    res.redirect('/events');
+    return res.redirect('/events');
   }
   User.findById(req.session.currentUser._id).populate('owned')
     .then((userData) => {
@@ -22,7 +22,7 @@ router.get('/my-events', (req, res, next) => {
 // POST ('/profile/myevents/:Id')
 router.post('/my-events/:eventId', (req, res, next) => {
   if (!req.session.currentUser) {
-    res.redirect('/events');
+    return res.redirect('/events');
   }
   const eventId = req.params.eventId;
   Event.findByIdAndUpdate(eventId, { $set: { active: false } })

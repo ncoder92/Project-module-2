@@ -27,7 +27,7 @@ router.get('/new', (req, res, next) => {
 // POST ('/events') Crear nuevo
 router.post('/', (req, res, next) => {
   if (!req.session.currentUser) {
-    res.redirect('/events');
+    return res.redirect('/events');
   }
   const title = req.body.title;
   const description = req.body.description;
@@ -52,9 +52,12 @@ router.post('/', (req, res, next) => {
 
   newEvent.save()
     .then((eventCreated) => {
-      return User.findByIdAndUpdate(req.session.currentUser._id, { $push: { owned: eventCreated._id } });
+      return User.findByIdAndUpdate(req.session.currentUser._id, { $push: { owned: eventCreated._id } }, { new: true });
     })
-    .then(() => res.redirect('/'))
+    .then((user) => {
+      req.session.currentUser = user;
+      res.redirect('/');
+    })
     .catch(next);
 });
 
@@ -76,7 +79,8 @@ router.get('/:id', (req, res, next) => {
       let data = {
         title: event.title,
         description: event.description,
-        id: event._id
+        id: event._id,
+        attendeeCount: event.attendees.length
       };
 
       if (!currentUser) {
@@ -108,7 +112,7 @@ router.post('/:id', (req, res, next) => {
   let data = {};
 
   if (!currentUser) {
-    res.redirect('/events');
+    return res.redirect('/events');
   }
 
   Event.findById(eventId).populate('attendees')

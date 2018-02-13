@@ -49,7 +49,7 @@ router.post('/login', (req, res, next) => {
 
     if (bcrypt.compareSync(password, user.password)) {
       req.session.currentUser = user;
-      res.redirect('/events');
+      return res.redirect('/events');
     } else {
       const data = {
         usernameField: username,
@@ -131,7 +131,7 @@ router.post('/signup', (req, res, next) => {
         return next(err);
       }
       req.session.currentUser = newUser;
-      res.redirect('/events');
+      return res.redirect('/events');
     });
   });
 });
@@ -139,7 +139,7 @@ router.post('/signup', (req, res, next) => {
 /* handle the POST from the logout button. */
 router.post('/logout', (req, res, next) => {
   req.session.currentUser = null;
-  res.redirect('/events');
+  return res.redirect('/events');
 });
 
 module.exports = router;
