@@ -12,10 +12,16 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px;
+  background-color: #F6F7F8;
 }
 
 a {
   color: #00B7FF;
+}
+
+h2 {
+  color: #2E3E48;
 }
 
 
@@ -24,9 +30,9 @@ a {
 /* ---- layout ---- */
 
 header {
-  background-color: blueviolet;
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid rgb(0, 0, 0);
   top: 0px;
+  background-color: white;
 }
 
 .header-container {
@@ -34,16 +40,17 @@ header {
   justify-content: space-between
 }
 
-
-
-.container{
+.main-container{
   display: flex;
   flex-direction: column;
 }
 
-.container div {
-  border: 1px solid rgb(112, 91, 170);
+.main-container>div {
+  border: 1px solid rgb(240, 240, 240);
+  padding: 10px;
   margin-bottom: 10px;
+  background-color: white;
+  border-radius: 5px;
 }
 
 footer {
@@ -51,8 +58,89 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
+  background-color: #353E48;
 }
 
+.footer-container {
 
+}
+
+header, footer, .main-container {
+  padding: 0px 15px 0px 15px;
+  border: 2px solid red;
+}
+
+.header-container, .footer-container {
+  padding: 10px 0px 10px 0px;
+}
 
 /* ---- components ---- */
+
+.btn-main {
+  vertical-align: middle;
+  border-radius: 4px;
+  padding: 5px 15px;
+  background-color: #00a2c7;
+  color: white;
+  border: none;
+  float: right;
+}
+
+.btn-attend {
+  vertical-align: middle;
+  border-radius: 4px;
+  padding: 5px 15px;
+  background-color: #F64060;
+  color: white;
+  border: none;
+  width: 100%;
+}
+
+.logo {
+
+}
+
+.image-logo {
+  transform: rotateY(180deg);
+  height: 50px;
+  line-height: 50px;
+}
+
+.login-signup {
+  line-height: 50px;
+}
+
+.login-signup a:first-child {
+  padding-right: 10px;
+}
+
+.login-signup a {
+  color: gray;
+  text-decoration: none;
+  font-size: 18px;
+  /* font-weight: bold; */
+}
+
+.wrapper-user-events {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+}
+
+/* .username, a {
+  color: gray;
+  text-decoration: none;
+  font-size: 15px;
+} */
+
+.user-name-tag {
+  margin-top: 0px; 
+}
+
+.my-events-tag {
+  text-align: left;
+}
+
+.my-events {
+  float: left;
+}

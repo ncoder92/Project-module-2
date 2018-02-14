@@ -9,29 +9,48 @@
 </head>
 
 <body>
+
 	<header>
 		<div class="header-container">
-			<div><p>Logo</p></div>
+
+			<div class="logo">
+				<a href="/events"><img class="image-logo" src="/images/logo.svg"></a>
+			</div>
+
 			<%if (user) { %>
-			<p><%= user.name %></p>
-		<% } %>
-			<div>
-				<% if (!user) { %>
+			<div class="wrapper-user-events">
+				<!-- <div class="username">			
+					<p class="user-name-tag">Hello, <%= user.name %></p>
+				</div> -->
+				<div class="my-events">
+						<a class="my-events-tag" href="/profile/my-events">My events</a>
+				</div>
+			</div>
+			<% } %>
+			
+			<% if (!user) { %>
+			<div class="login-signup">	
 					<a href="/auth/signup">Signin</a>
 					<a href="/auth/login">Login</a>
-				<% } else { %>
-					<a href="/profile/my-events">My events</a>
-				<% }%>
 			</div>
+			<% }%>
+
 		</div>
 	</header>
-	<%- body%>
+
+	<div class="main-container">
+		<%- body%>
+	</div>
+
 	<footer>
-		<% if (user) { %>
-		<form action="/auth/logout" method="post">
-			<button>Logout</button>
-		</form>
-	<% } %>
+		<div class="footer-container">
+			<% if (user) { %>
+			<form action="/auth/logout" method="post">
+				<button>Logout</button>
+			</form>
+			<% } %>
+		</div>
 	</footer>
+
 </body>
 </html>

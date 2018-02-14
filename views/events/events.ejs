@@ -1,13 +1,13 @@
 <h2>Event list</h2>
-<div class="container">
   <% results.forEach((event) => { %>
     <% if (event.active) { %>
     <div>
       <h3><%= event.title %></h3>
       <p><%= event.description %></p>
       <p><%= event.attendees.length %> people will assist</p>
-      <a href="/events/<%= event._id%>">View details</a>
+      <form action="/events/<%= event._id%>" method="GET">
+        <button class="btn-main">View details</button>
+      </form>
     </div>
     <% } %>
   <% }) %>
-</div>
