@@ -1,30 +1,37 @@
-<h2>Event details</h2>
-  
-<form action="/events" method="GET" >
-  <button class="btn-main">Back</button>
-</form>  
-  <div>
-    <h3><%= title %></h3>
-    <p><%= description %></p>
-    <p><%= attendeeCount %> people will assist</p>
-
-    <div>
-      <% if (status !== 'owner') { %>
-        <% if (status === 'not logged in') { %>
-          <form action="/auth/login" method="GET" >
-            <button class="btn-attend">Login to attend</button>
-          </form>  
-        <% } else if (status === 'not attending') { %>
-          <form action="/events/<%= id %>" method="POST" >
-            <button class="btn-attend">Attend</button>
-          </form>  
-        <% } else if (status === 'attending') { %>
-          <form action="/events/<%= id %>" method="POST" >
-            <button class="btn-attend">Unattend</button>
-          </form>  
-        <% } %>
-      <% } %>
-    </div>
+<div class="title-container">
+  <div>  
+    <h2>Event details</h2>
   </div>
+  <div>
+    <form action="/events" method="GET" >
+      <button class="btn-main">Back</button>
+    </form>
+  </div>
+</div>
+
+<div class="event-container">
+  <h3><%= title %></h3>
+  <p><%= description %></p>
+  <p><%= attendeeCount %> people will assist</p>
+
+  <div>
+    <% if (status !== 'owner') { %>
+      <% if (status === 'not logged in') { %>
+        <form action="/auth/login" method="GET" >
+          <button class="btn-attend">Login to attend</button>
+        </form>  
+      <% } else if (status === 'not attending') { %>
+        <form action="/events/<%= id %>" method="POST" >
+          <button class="btn-attend">Attend event</button>
+        </form>  
+      <% } else if (status === 'attending') { %>
+        <form action="/events/<%= id %>" method="POST" >
+          <button class="btn-attend">Unattend event</button>
+        </form>  
+      <% } %>
+    <% } %>
+  </div>
+
+</div>
 
   

@@ -10,6 +10,7 @@
 
 <body>
 
+	<div class="main-container">
 	<header>
 		<div class="header-container">
 
@@ -22,14 +23,14 @@
 				<!-- <div class="username">			
 					<p class="user-name-tag">Hello, <%= user.name %></p>
 				</div> -->
-				<div class="my-events">
+				<div class="top-links">
 						<a class="my-events-tag" href="/profile/my-events">My events</a>
 				</div>
 			</div>
 			<% } %>
 			
 			<% if (!user) { %>
-			<div class="login-signup">	
+			<div class="top-links">	
 					<a href="/auth/signup">Signin</a>
 					<a href="/auth/login">Login</a>
 			</div>
@@ -37,16 +38,17 @@
 
 		</div>
 	</header>
-
-	<div class="main-container">
-		<%- body%>
+		<div class="second-container">
+			<%- body%>
+		<div class="push"></div>
+		</div>
 	</div>
 
 	<footer>
 		<div class="footer-container">
 			<% if (user) { %>
 			<form action="/auth/logout" method="post">
-				<button>Logout</button>
+				<p class="logout">Logout</p>
 			</form>
 			<% } %>
 		</div>
