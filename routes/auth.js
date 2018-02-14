@@ -35,29 +35,27 @@ router.post('/login', (req, res, next) => {
     return res.render('auth/login', data);
   }
 
-  User.findOne({ 'username': username }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      const data = {
-        usernameField: username,
-        message: 'Username or password are incorrect'
-      };
-      return res.render('auth/login', data);
-    }
-
-    if (bcrypt.compareSync(password, user.password)) {
-      req.session.currentUser = user;
-      return res.redirect('/events');
-    } else {
-      const data = {
-        usernameField: username,
-        message: 'Username or password are incorrect'
-      };
-      res.render('auth/login', data);
-    }
-  });
+  User.findOne({ 'username': username })
+    .then((user) => {
+      if (!user) {
+        const data = {
+          usernameField: username,
+          message: 'Username or password are incorrect'
+        };
+        return res.render('auth/login', data);
+      }
+      if (bcrypt.compareSync(password, user.password)) {
+        req.session.currentUser = user;
+        return res.redirect('/events');
+      } else {
+        const data = {
+          usernameField: username,
+          message: 'Username or password are incorrect'
+        };
+        res.render('auth/login', data);
+      }
+    })
+    .catch(next);
 });
 
 /* render the signup form. */
@@ -100,40 +98,38 @@ router.post('/signup', (req, res, next) => {
   }
 
   // check if user with this username already exists
-  User.findOne({ 'username': username }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (user) {
-      const data = {
-        message: 'The "' + username + '" username already exists',
-        fields: {
-          name: req.body.name,
-          username: '',
-          email: req.body.email
-        }
-      };
-      return res.render('auth/signup', data);
-    }
-
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
-      name,
-      username,
-      email,
-      password: hashPass
-    });
-
-    newUser.save((err) => {
-      if (err) {
-        return next(err);
+  User.findOne({ 'username': username })
+    .then((user) => {
+      if (user) {
+        const data = {
+          message: 'The "' + username + '" username already exists',
+          fields: {
+            name: req.body.name,
+            username: '',
+            email: req.body.email
+          }
+        };
+        return res.render('auth/signup', data);
       }
-      req.session.currentUser = newUser;
-      return res.redirect('/events');
-    });
-  });
+
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const newUser = new User({
+        name,
+        username,
+        email,
+        password: hashPass
+      });
+
+      newUser.save()
+        .then(() => {
+          req.session.currentUser = newUser;
+          return res.redirect('/events');
+        })
+        .catch(next);
+    })
+    .catch(next);
 });
 
 /* handle the POST from the logout button. */
