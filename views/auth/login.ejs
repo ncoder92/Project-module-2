@@ -6,15 +6,15 @@
 		<input type="text" name="username" id="username" value="<%= usernameField %>">
 	</div>
 	<div class="field">
-		<label for="password"> password </label>
+		<label for="password"> Password </label>
 		<input type="password" name="password" id="password">
 	</div>
 	<div class="field control">
-		<button class="btn submit">Login</button>
+		<button class="btn-main">Login</button>
 		<% if (typeof message !== 'undefined') { %>
 			<p class="error"><%= message %></p>
 		<% } %>
 	</div>
 </form>
 
-<a href="/auth/signup">Don't have an account? Signup here</a>
+<a class="signup-redirect" href="/auth/signup">Don't have an account? Signup here</a>

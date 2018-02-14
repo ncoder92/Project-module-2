@@ -12,7 +12,9 @@
 <div class="event-container">
   <h3><%= title %></h3>
   <p><%= description %></p>
-  <p><%= attendeeCount %> people will assist</p>
+  <div class="event-attend-details">  
+    <p><%= attendeeCount %> people will assist</p>
+  </div>
 
   <div>
     <% if (status !== 'owner') { %>
