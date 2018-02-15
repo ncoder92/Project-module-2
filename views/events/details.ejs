@@ -9,31 +9,33 @@
   </div>
 </div>
 
-<div class="event-container">
+<div class="event-container"> 
+  <p class="event-date"><%= eventDate %></p>
   <h3><%= title %></h3>
   <p><%= description %></p>
   <div class="event-attend-details">  
     <p><%= attendeeCount %> people will assist</p>
   </div>
-
-  <div>
+  <div class='attend-btn-container'>
     <% if (status !== 'owner') { %>
       <% if (status === 'not logged in') { %>
-        <form action="/auth/login" method="GET" >
+        <form action="/auth/login" method="GET">
           <button class="btn-attend">Login to attend</button>
-        </form>  
+        </form>
       <% } else if (status === 'not attending') { %>
-        <form action="/events/<%= id %>" method="POST" >
+        <form action="/events/<%= id %>" method="POST">
           <button class="btn-attend">Attend event</button>
-        </form>  
+        </form>
       <% } else if (status === 'attending') { %>
-        <form action="/events/<%= id %>" method="POST" >
+        <form action="/events/<%= id %>" method="POST">
           <button class="btn-attend">Unattend event</button>
-        </form>  
+        </form>
       <% } %>
     <% } %>
   </div>
+  <div id="map"></div>
+  
 
 </div>
-
+<% include ../scripts %>
   

@@ -1,15 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const moment = require('moment');
 
 const User = require('../models/user');
 const Event = require('../models/event');
 
 // GET ('/events')
 router.get('/', function (req, res, next) {
-  Event.find({})
+  Event.find({}).sort({ eventDate: 1 })
     .then((results) => {
+      let formattedDates = [];
+      results.forEach((event) => {
+        formattedDates.push(moment(event.eventDate).format('ddd, MMM D, YYYY, h:mm A'));
+      });
       const data = {
-        results
+        results,
+        formattedDates
       };
       res.render('events/events', data);
     })
@@ -31,6 +37,11 @@ router.post('/', (req, res, next) => {
   }
   const title = req.body.title;
   const description = req.body.description;
+  const eventDate = moment(req.body.date).format('ddd, MMM D, YYYY, h:mm A');
+  const eventLocation = {
+    type: 'Point',
+    coordinates: [req.body.longitude, req.body.latitude]
+  };
 
   if (title === '') {
     const data = {
@@ -47,7 +58,9 @@ router.post('/', (req, res, next) => {
 
   const newEvent = new Event({
     title,
-    description
+    description,
+    eventLocation,
+    eventDate
   });
   let newEventId;
 
@@ -84,9 +97,10 @@ router.get('/:id', (req, res, next) => {
         title: event.title,
         description: event.description,
         id: event._id,
-        attendeeCount: event.attendees.length
+        attendeeCount: event.attendees.length,
+        eventDate: moment(event.eventDate).format('ddd, MMM D, YYYY, h:mm A')
       };
-
+      console.log(data.eventDate);
       if (!currentUser) {
         data.status = 'not logged in';
       } else {
@@ -110,14 +124,12 @@ router.get('/:id', (req, res, next) => {
 
 // POST ('/events/:Id') Attend
 router.post('/:id', (req, res, next) => {
-  const eventId = req.params.id;
   const currentUser = req.session.currentUser;
-  let alreadyAttending = false;
-  let data = {};
-
   if (!currentUser) {
     return res.redirect('/events');
   }
+  const eventId = req.params.id;
+  let alreadyAttending = false;
 
   Event.findById(eventId).populate('attendees')
     .then((result) => {
@@ -127,20 +139,8 @@ router.post('/:id', (req, res, next) => {
         }
       }
       if (alreadyAttending) {
-        data = {
-          title: result.title,
-          description: result.description,
-          id: result._id,
-          status: 'not attending'
-        };
         return Event.findByIdAndUpdate(eventId, { $pull: {attendees: currentUser._id} });
       } else {
-        data = {
-          title: result.title,
-          description: result.description,
-          id: result._id,
-          status: 'attending'
-        };
         return Event.findByIdAndUpdate(eventId, { $push: {attendees: currentUser._id} });
       }
     })

@@ -40,6 +40,11 @@ p {
   margin-bottom: 0px;
 }
 
+.event-date {
+  color: gray;
+  margin-bottom: 10px;
+}
+
 
 
 /* ---- layout ---- */
@@ -78,6 +83,7 @@ header {
 .event-attend-details {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0px;
 }
 
 .title-container {
@@ -118,6 +124,11 @@ header, footer, .second-container{
   justify-content: space-between;
 }
 
+.btn-container-new {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
 .btn-main {
   vertical-align: middle;
   border-radius: 4px;
@@ -131,6 +142,7 @@ header, footer, .second-container{
 .btn-attend {
   vertical-align: middle;
   border-radius: 4px;
+  margin-top: 20px;
   padding: 5px 15px;
   background-color: #F64060;
   color: white;
@@ -147,8 +159,8 @@ header, footer, .second-container{
   border: none;
 }
 
-.logo {
-
+.attend-btn-container {
+  margin-bottom: 20px;
 }
 
 .image-logo {
@@ -177,12 +189,6 @@ header, footer, .second-container{
   flex-direction: column;
   align-items: flex-end; 
 }
-
-/* .username, a {
-  color: gray;
-  text-decoration: none;
-  font-size: 15px;
-} */
 
 .user-name-tag {
   margin-top: 0px; 
@@ -220,8 +226,23 @@ form input {
   padding-left: 5px;
 }
 
+form textarea {
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 18px;
+  padding-left: 5px;
+  resize: none;
+}
+
 .signup-redirect {
   line-height: 25px;
   color: gray;
   text-decoration: none;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
 }
