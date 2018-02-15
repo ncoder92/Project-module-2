@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const moment = require('moment');
 
 const User = require('../models/user');
@@ -124,14 +124,12 @@ router.get('/:id', (req, res, next) => {
 
 // POST ('/events/:Id') Attend
 router.post('/:id', (req, res, next) => {
-  const eventId = req.params.id;
   const currentUser = req.session.currentUser;
-  let alreadyAttending = false;
-  let data = {};
-
   if (!currentUser) {
     return res.redirect('/events');
   }
+  const eventId = req.params.id;
+  let alreadyAttending = false;
 
   Event.findById(eventId).populate('attendees')
     .then((result) => {
@@ -141,20 +139,8 @@ router.post('/:id', (req, res, next) => {
         }
       }
       if (alreadyAttending) {
-        data = {
-          title: result.title,
-          description: result.description,
-          id: result._id,
-          status: 'not attending'
-        };
         return Event.findByIdAndUpdate(eventId, { $pull: {attendees: currentUser._id} });
       } else {
-        data = {
-          title: result.title,
-          description: result.description,
-          id: result._id,
-          status: 'attending'
-        };
         return Event.findByIdAndUpdate(eventId, { $push: {attendees: currentUser._id} });
       }
     })
