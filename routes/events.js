@@ -7,7 +7,7 @@ const Event = require('../models/event');
 
 // GET ('/events')
 router.get('/', function (req, res, next) {
-  Event.find({})
+  Event.find({}).sort({ eventDate: 1 })
     .then((results) => {
       let formattedDates = [];
       results.forEach((event) => {
