@@ -24,8 +24,8 @@ router.post('/login', (req, res, next) => {
     return res.redirect('/events');
   }
 
-  var username = req.body.username;
-  var password = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
   if (username === '' || password === '') {
     const data = {

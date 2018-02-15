@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const Event = require('../models/event');
 
 router.get('/events/:id', (req, res, next) => {
-  var eventId = req.params.id;
+  const eventId = req.params.id;
   Event.findById(eventId)
     .then((event) => {
       console.log(event);
