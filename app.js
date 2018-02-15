@@ -12,6 +12,7 @@ const index = require('./routes/index');
 const profile = require('./routes/profile');
 const auth = require('./routes/auth');
 const events = require('./routes/events');
+const api = require('./routes/api');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/', index);
 app.use('/profile', profile);
 app.use('/auth', auth);
 app.use('/events', events);
+app.use('/api', api);
 
 // -- 404 and error handler
 
