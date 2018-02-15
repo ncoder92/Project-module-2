@@ -1,19 +1,31 @@
-<h2>My events</h2>
-<div class="container">
+<div class="title-container">
+    <div>  
+      <h2>My events</h2>
+    </div>
+    <div>
+        <form action="/events/new" method="get">
+          <button class="btn-main">Create new event</button>
+        </form>
+    </div>
+</div>
+
   <% events.forEach((event) => { %>
     <% if (event.active) { %>
-    <div>
+    <div class="event-container">
       <h3><%= event.title %></h3>
       <p><%= event.description %></p>
-      <a href="/events/<%= event._id%>">View details</a>
-      <form action="/profile/my-events/<%= event._id%>" method="post">
-        <button>Delete event</button>
-      </form>
+      <div class="btn-container">
+        <form action="/profile/my-events/<%= event._id%>" method="post">
+          <button class="btn-delete">Delete event</button>
+        </form>
+        <form action="/events/<%= event._id%>" method="get">
+          <button class="btn-main">View details</button>
+        </form>
+      </div>
     </div>
     <% } %>
   <% }) %>
-</div>
-<a href="/events">back</a>
-<form action="/events/new" method="get">
-  <button>Create new event</button>
-</form>
+
+  <!-- <form action="/events" method="GET" >
+    <button >Back</button>
+  </form> -->

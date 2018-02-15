@@ -2,6 +2,7 @@
 
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -14,6 +15,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
   background-color: #F6F7F8;
+  height: 100%
 }
 
 a {
@@ -24,13 +26,26 @@ h2 {
   color: #2E3E48;
 }
 
+h3 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-top: 0px;
+}
+
+.event-attend-details p {
+  color: gray;
+  margin-bottom: 0px;
+}
 
 
 
 /* ---- layout ---- */
 
 header {
-  border-bottom: 3px solid rgb(0, 0, 0);
+  border-bottom: 3px solid #F64060;
   top: 0px;
   background-color: white;
 }
@@ -43,9 +58,11 @@ header {
 .main-container{
   display: flex;
   flex-direction: column;
+  min-height: 100%;
+  margin-bottom: -100px;
 }
 
-.main-container>div {
+.event-container {
   border: 1px solid rgb(240, 240, 240);
   padding: 10px;
   margin-bottom: 10px;
@@ -53,10 +70,30 @@ header {
   border-radius: 5px;
 }
 
-footer {
+.event-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-attend-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.push {
   height: 100px;
-  left: 0;
-  bottom: 0;
+}
+
+footer {
+  border-top: 3px solid #F64060;
+  height: 100px;
   width: 100%;
   background-color: #353E48;
 }
@@ -65,9 +102,8 @@ footer {
 
 }
 
-header, footer, .main-container {
+header, footer, .second-container{
   padding: 0px 15px 0px 15px;
-  border: 2px solid red;
 }
 
 .header-container, .footer-container {
@@ -75,6 +111,12 @@ header, footer, .main-container {
 }
 
 /* ---- components ---- */
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 .btn-main {
   vertical-align: middle;
@@ -96,6 +138,15 @@ header, footer, .main-container {
   width: 100%;
 }
 
+.btn-delete {
+  vertical-align: middle;
+  border-radius: 4px;
+  padding: 5px 15px;
+  background-color: #F64060;
+  color: white;
+  border: none;
+}
+
 .logo {
 
 }
@@ -106,15 +157,15 @@ header, footer, .main-container {
   line-height: 50px;
 }
 
-.login-signup {
+.top-links {
   line-height: 50px;
 }
 
-.login-signup a:first-child {
+.top-links a:first-child {
   padding-right: 10px;
 }
 
-.login-signup a {
+.top-links a {
   color: gray;
   text-decoration: none;
   font-size: 18px;
@@ -143,4 +194,34 @@ header, footer, .main-container {
 
 .my-events {
   float: left;
+}
+
+.logout-btn{
+  color: white;
+  text-decoration: underline;
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+form input {
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 4px;
+  width: 100%;
+  height: 35px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  padding-left: 5px;
+}
+
+.signup-redirect {
+  line-height: 25px;
+  color: gray;
+  text-decoration: none;
 }
