@@ -9,8 +9,18 @@ const EventSchema = new Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  eventDate: {
+    type: Date,
+    default: Date.now
+  },
+  eventLocation: {
+    type: { type: String },
+    coordinates: [Number]
   }
 });
+
+EventSchema.index({location: '2dsphere'});
 
 const Event = mongoose.model('Event', EventSchema);
 module.exports = Event;

@@ -31,6 +31,11 @@ router.post('/', (req, res, next) => {
   }
   const title = req.body.title;
   const description = req.body.description;
+  const eventDate = new Date(req.body.date);
+  const eventLocation = {
+    type: 'Point',
+    coordinates: [req.body.longitude, req.body.latitude]
+  };
 
   if (title === '') {
     const data = {
@@ -47,7 +52,9 @@ router.post('/', (req, res, next) => {
 
   const newEvent = new Event({
     title,
-    description
+    description,
+    eventLocation,
+    eventDate
   });
   let newEventId;
 
