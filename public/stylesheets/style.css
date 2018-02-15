@@ -40,6 +40,11 @@ p {
   margin-bottom: 0px;
 }
 
+.event-date {
+  color: gray;
+  margin-bottom: 10px;
+}
+
 
 
 /* ---- layout ---- */

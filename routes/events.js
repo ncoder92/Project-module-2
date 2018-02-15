@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const moment = require('moment');
 
 const User = require('../models/user');
 const Event = require('../models/event');
@@ -8,8 +9,13 @@ const Event = require('../models/event');
 router.get('/', function (req, res, next) {
   Event.find({})
     .then((results) => {
+      let formattedDates = [];
+      results.forEach((event) => {
+        formattedDates.push(moment(event.eventDate).format('ddd, MMM D, YYYY, h:mm A'));
+      });
       const data = {
-        results
+        results,
+        formattedDates
       };
       res.render('events/events', data);
     })
@@ -31,7 +37,7 @@ router.post('/', (req, res, next) => {
   }
   const title = req.body.title;
   const description = req.body.description;
-  const eventDate = new Date(req.body.date);
+  const eventDate = moment(req.body.date).format('ddd, MMM D, YYYY, h:mm A');
   const eventLocation = {
     type: 'Point',
     coordinates: [req.body.longitude, req.body.latitude]
@@ -91,9 +97,10 @@ router.get('/:id', (req, res, next) => {
         title: event.title,
         description: event.description,
         id: event._id,
-        attendeeCount: event.attendees.length
+        attendeeCount: event.attendees.length,
+        eventDate: moment(event.eventDate).format('ddd, MMM D, YYYY, h:mm A')
       };
-
+      console.log(data.eventDate);
       if (!currentUser) {
         data.status = 'not logged in';
       } else {
