@@ -15,7 +15,7 @@ const EventSchema = new Schema({
     default: Date.now
   },
   eventLocation: {
-    type: { type: String },
+    type: { type: String, default: 'Point' },
     coordinates: [Number]
   }
 });
