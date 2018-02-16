@@ -76,8 +76,12 @@ header {
 }
 
 .event-description {
-  display: flex;
   flex-direction: column;
+  max-height: 9.5em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 10px;
+  min-width: 0px;
 }
 
 .event-attend-details {
