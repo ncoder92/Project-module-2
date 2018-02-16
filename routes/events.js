@@ -39,7 +39,6 @@ router.post('/', (req, res, next) => {
   const description = req.body.description;
   const eventDate = moment(req.body.date).format('ddd, MMM D, YYYY, h:mm A');
   const eventLocation = {
-    type: 'Point',
     coordinates: [req.body.longitude, req.body.latitude]
   };
 
