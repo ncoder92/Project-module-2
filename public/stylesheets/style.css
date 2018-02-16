@@ -327,6 +327,7 @@ a {
 
   .map-container {
     width: 400px;
+    margin-top: 60px;
   }
 
   .event-detail-container {
