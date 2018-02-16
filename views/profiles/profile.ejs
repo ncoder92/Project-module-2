@@ -3,9 +3,7 @@
       <h2>My events</h2>
     </div>
     <div>
-        <form action="/events/new" method="get">
-          <button class="btn-main">Create new event</button>
-        </form>
+      <a href="/events/new" class='btn-main'>Create new event</a>
     </div>
 </div>
 
@@ -18,14 +16,8 @@
         <form action="/profile/my-events/<%= event._id%>" method="post">
           <button class="btn-delete">Delete event</button>
         </form>
-        <form action="/events/<%= event._id%>" method="get">
-          <button class="btn-main">View details</button>
-        </form>
+        <a href="/events/<%= event._id%>" class="btn-main">View details</a>
       </div>
     </div>
     <% } %>
   <% }) %>
-
-  <!-- <form action="/events" method="GET" >
-    <button >Back</button>
-  </form> -->

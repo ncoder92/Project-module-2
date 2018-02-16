@@ -19,7 +19,12 @@
 		<div class="header-container">
 
 			<div class="logo">
-				<a href="/events"><img class="image-logo" src="/images/logo.svg"></a>
+				<% if (typeof allowClick !== 'undefined') { %>
+					<img class="image-logo" src="/images/logo.svg">
+				<% } else { %>
+					<a href="/events">
+					<img class="image-logo" src="/images/logo.svg"></a>
+				<% } %>
 			</div>
 
 			<%if (user) { %>
