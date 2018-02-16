@@ -21,7 +21,9 @@
     <div class='attend-btn-container'>
       <% if (status !== 'owner') { %>
         <% if (status === 'not logged in') { %>
-          <a href="/auth/login" class="btn-attend">Login to attend</a>
+          <form action="/auth/login" method="POST">
+            <button class="btn-attend">Login to attend</button>
+          </form>
         <% } else if (status === 'not attending') { %>
           <form action="/events/<%= id %>" method="POST">
             <button class="btn-attend">Attend event</button>
