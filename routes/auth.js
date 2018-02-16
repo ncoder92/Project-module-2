@@ -30,7 +30,7 @@ router.post('/login', (req, res, next) => {
   if (username === '' || password === '') {
     const data = {
       usernameField: username,
-      message: 'Indicate a username and a password to login'
+      message: 'Indicate a username and a password to login. Remember that the password needs to be at least 8 characters long'
     };
     return res.render('auth/login', data);
   }
@@ -48,10 +48,7 @@ router.post('/login', (req, res, next) => {
         req.session.currentUser = user;
         return res.redirect('/events');
       } else {
-        const data = {
-          usernameField: username,
-          message: 'Username or password are incorrect'
-        };
+        const data = { usernameField: username, message: 'Username or password are incorrect. Remember that the password needs to be at least 8 characters long' };
         res.render('auth/login', data);
       }
     })
@@ -87,7 +84,7 @@ router.post('/signup', (req, res, next) => {
   // validate
   if (username === '' || password === '' || password.length < 8 || email === '') {
     const data = {
-      message: 'Invalid username or password',
+      message: 'Invalid username or password. Make sure your password has at least 8 characters',
       fields: {
         name: req.body.name,
         username: req.body.username,

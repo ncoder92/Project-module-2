@@ -7,8 +7,9 @@
 	 crossorigin="" />
 	
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="/stylesheets/style.css">
-	<title>Our app</title>
+	<title>Quteem</title>
 </head>
 
 <body>
@@ -18,7 +19,12 @@
 		<div class="header-container">
 
 			<div class="logo">
-				<a href="/events"><img class="image-logo" src="/images/logo.svg"></a>
+				<% if (typeof allowClick !== 'undefined') { %>
+					<img class="image-logo" src="/images/logo.svg">
+				<% } else { %>
+					<a href="/events">
+					<img class="image-logo" src="/images/logo.svg"></a>
+				<% } %>
 			</div>
 
 			<%if (user) { %>
@@ -49,11 +55,43 @@
 
 	<footer>
 		<div class="footer-container">
-			<% if (user) { %>
-			<form action="/auth/logout" method="post">
-				<button class="logout-btn">Logout</button>
-			</form>
-			<% } %>
+			<div class="social-logout-container">
+				<div class="social-store-container">
+					<div class="social-icon-container">
+							<ul>
+								<li><img class="social-icon" src="/images/twitter-xl.png"></li>
+								<li><img class="social-icon" src="/images/facebook-3-xl.png"></li>
+								<li><img class="social-icon" src="/images/google-plus-3-xl.png"></li>
+								<li><img class="social-icon" src="/images/instagram-xl.png"></li>
+								<li><img class="social-icon" src="/images/pinterest-xl.png"></li>
+							</ul>
+					</div>
+					<div class="store-icon-container">
+							<ul>
+								<li><img class="store-icon" src="/images/app-store.png"></li>
+								<li><img class="store-icon" src="/images/google-play.png"></li>
+							</ul>
+					</div>
+				</div>
+				<div>
+					<% if (user) { %>
+						<form action="/auth/logout" method="post">
+							<button class="btn-logout">Logout</button>
+						</form>
+					<% } %>
+				</div>	
+		</div>
+
+	  	<div class="footer-push">
+
+			</div>
+			<div class="copyright">
+				<ul>
+					<li>&copy; Quteem 2018</li>
+					<li>Terms of Service</li>
+					<li>Privacy Policy</li>
+				</ul>
+			</div>
 		</div>
 	</footer>
 
