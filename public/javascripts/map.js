@@ -6,7 +6,7 @@ function main () {
     .then((response) => {
       const latitude = response.data.eventLocation.coordinates[1];
       const longitude = response.data.eventLocation.coordinates[0];
-      const map = L.map('map').setView([latitude, longitude], 14);
+      const map = L.map('map').setView([latitude, longitude], 15);
       L.tileLayer(
         'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
         {
