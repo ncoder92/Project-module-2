@@ -124,6 +124,11 @@ header, footer, .second-container{
   justify-content: space-between;
 }
 
+.btn-container-new {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
 .btn-main {
   vertical-align: middle;
   border-radius: 4px;

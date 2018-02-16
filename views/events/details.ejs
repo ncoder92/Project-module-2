@@ -22,16 +22,16 @@
         <form action="/auth/login" method="GET">
           <button class="btn-attend">Login to attend</button>
         </form>
-        <% } else if (status === 'not attending') { %>
-          <form action="/events/<%= id %>" method="POST">
-            <button class="btn-attend">Attend event</button>
-          </form>
-          <% } else if (status === 'attending') { %>
-            <form action="/events/<%= id %>" method="POST">
-              <button class="btn-attend">Unattend event</button>
-            </form>
-            <% } %>
-              <% } %>
+      <% } else if (status === 'not attending') { %>
+        <form action="/events/<%= id %>" method="POST">
+          <button class="btn-attend">Attend event</button>
+        </form>
+      <% } else if (status === 'attending') { %>
+        <form action="/events/<%= id %>" method="POST">
+          <button class="btn-attend">Unattend event</button>
+        </form>
+      <% } %>
+    <% } %>
   </div>
   <div id="map"></div>
   
