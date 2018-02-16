@@ -14,9 +14,7 @@
       </div>
       <div class="event-attend-details">   
         <p><%= event.attendees.length %> people will assist</p>
-        <form action="/events/<%= event._id%>" method="GET">
-          <button class="btn-main">View details</button>
-        </form>
+        <a href="/events/<%= event._id%>" class="btn-main">View details</a>
       </div>
     </div>
     <% } %>

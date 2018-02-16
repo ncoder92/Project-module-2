@@ -3,9 +3,7 @@
     <h2>Event details</h2>
   </div>
   <div>
-    <form action="/events" method="GET" >
-      <button class="btn-main">Back</button>
-    </form>
+    <a href="/events" class="btn-main">Back</a>
   </div>
 </div>
 
@@ -23,9 +21,7 @@
     <div class='attend-btn-container'>
       <% if (status !== 'owner') { %>
         <% if (status === 'not logged in') { %>
-          <form action="/auth/login" method="GET">
-            <button class="btn-attend">Login to attend</button>
-          </form>
+          <a href="/auth/login" class="btn-attend">Login to attend</a>
         <% } else if (status === 'not attending') { %>
           <form action="/events/<%= id %>" method="POST">
             <button class="btn-attend">Attend event</button>

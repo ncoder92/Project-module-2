@@ -15,7 +15,8 @@ router.get('/', function (req, res, next) {
       });
       const data = {
         results,
-        formattedDates
+        formattedDates,
+        allowClick: false
       };
       res.render('events/events', data);
     })
