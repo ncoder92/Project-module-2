@@ -12,7 +12,8 @@ html {
 /* ---- typography ---- */
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  font: 14px 'Montserrat', sans-serif;
   margin: 0px;
   background-color: #F6F7F8;
   height: 100%
@@ -75,6 +76,11 @@ header {
   border-radius: 5px;
 }
 
+.event-container:nth-child(2) {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .event-description {
   flex-direction: column;
   max-height: 9.5em;
@@ -109,14 +115,14 @@ footer {
 }
 
 .footer-container {
-
+  padding: 10px 10px;
 }
 
 header, footer, .second-container{
   padding: 0px 15px 0px 15px;
 }
 
-.header-container, .footer-container {
+.header-container {
   padding: 10px 0px 10px 0px;
 }
 
@@ -163,6 +169,15 @@ header, footer, .second-container{
   border: none;
 }
 
+.btn-logout {
+  font: 16px 'Montserrat', sans-serif;
+  color: white;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
 .attend-btn-container {
   margin-bottom: 20px;
 }
@@ -206,14 +221,6 @@ header, footer, .second-container{
   float: left;
 }
 
-.logout-btn{
-  color: white;
-  text-decoration: underline;
-  font-size: 18px;
-  background-color: transparent;
-  border: none;
-}
-
 label {
   display: block;
   margin-bottom: 5px;
@@ -249,4 +256,55 @@ form textarea {
 #map {
   width: 100%;
   height: 300px;
+}
+
+.copyright {
+  display: flex;
+  margin: 0 auto;
+}
+
+ul {
+  padding: 0;
+  display: flex;
+  color: white;
+  font-size: 10px;
+  list-style-type: none;
+  margin: 0 auto;
+}
+
+li {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.social-logout-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-store-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.social-icon-container {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.social-icon-container li {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.store-icon-container {
+}
+
+.social-icon {
+  width: 16px;
+}
+
+.store-icon {
+  width: 64px;
 }
